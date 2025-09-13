@@ -33,12 +33,19 @@
     .slider-container {
       position: relative;
       width: 300px;
-      height: 400px;
+      height: 600px;
       perspective: 1200px;
       transform-style: preserve-3d;
       background: #FFFFFF;
       border-radius: 20px;
       box-shadow: 0 10px 30px rgba(30, 42, 56, 0.1);
+    }
+
+    @media (max-width: 768px) {
+      .slider-container {
+        width: 280px;
+        height: 700px;
+      }
     }
 
     .slider {
