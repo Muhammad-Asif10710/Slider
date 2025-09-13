@@ -313,6 +313,15 @@
       z-index: 10;
       text-align: center;
       line-height: 1.2;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: block;
+    }
+
+    .social-text:hover {
+      transform: scale(1.05);
+      text-decoration: none;
     }
 
     .social-text.instagram {
@@ -570,13 +579,13 @@
   </div>
 
   <!-- Social Media Typing Text -->
-  <div class="social-text instagram">
+  <a href="https://www.tiktok.com/@zainabsiddiqui192?_t=ZS-8zhDMdDhzpY&_r=1" target="_blank" class="social-text instagram">
     <div class="line">Visit my Instagram</div>
-  </div>
+  </a>
   
-  <div class="social-text linkedin">
+  <a href="https://www.linkedin.com/in/zainab-siddiqui-056a7720a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" class="social-text linkedin">
     <div class="line">Visit my LinkedIn</div>
-  </div>
+  </a>
 
   <!-- Arrow Animations -->
   <div class="arrow-container">
@@ -855,6 +864,45 @@
         closePopup();
       }
     });
+
+
+    // Swipe Right for Social Media Links
+    let swipeStartX = 0;
+    let swipeStartY = 0;
+    let swipeEndX = 0;
+    let swipeEndY = 0;
+
+    document.addEventListener('touchstart', (e) => {
+      swipeStartX = e.touches[0].clientX;
+      swipeStartY = e.touches[0].clientY;
+    });
+
+    document.addEventListener('touchend', (e) => {
+      swipeEndX = e.changedTouches[0].clientX;
+      swipeEndY = e.changedTouches[0].clientY;
+      handleSwipeRight();
+    });
+
+    function handleSwipeRight() {
+      const deltaX = swipeEndX - swipeStartX;
+      const deltaY = swipeEndY - swipeStartY;
+      const minSwipeDistance = 100;
+      const maxVerticalDistance = 100;
+
+      // Check if it's a horizontal swipe (not vertical)
+      if (Math.abs(deltaY) > maxVerticalDistance) {
+        return;
+      }
+
+      // Swipe right from left side of screen (Instagram)
+      if (deltaX > minSwipeDistance && swipeStartX < window.innerWidth / 3) {
+        window.open('https://www.tiktok.com/@zainabsiddiqui192?_t=ZS-8zhDMdDhzpY&_r=1', '_blank');
+      }
+      // Swipe right from right side of screen (LinkedIn)
+      else if (deltaX > minSwipeDistance && swipeStartX > (window.innerWidth * 2) / 3) {
+        window.open('https://www.linkedin.com/in/zainab-siddiqui-056a7720a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app', '_blank');
+      }
+    }
   </script>
 </body>
 </html>
