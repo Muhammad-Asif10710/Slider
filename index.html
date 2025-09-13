@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Image Slider</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -11,7 +12,7 @@
     }
 
     body {
-      background: black;
+      background: #F2F2F2;
       font-family: 'Arial', sans-serif;
       display: flex;
       align-items: center;
@@ -35,6 +36,9 @@
       height: 400px;
       perspective: 1200px;
       transform-style: preserve-3d;
+      background: #FFFFFF;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(30, 42, 56, 0.1);
     }
 
     .slider {
@@ -53,10 +57,11 @@
       top: 10%;
       background-size: cover;
       background-position: center;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      box-shadow: 0 15px 35px rgba(30, 42, 56, 0.2);
       transition: all 0.5s ease;
       cursor: pointer;
+      border: 3px solid #FFFFFF;
     }
 
     .slide::before {
@@ -66,8 +71,8 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-      border-radius: 20px;
+      background: linear-gradient(45deg, rgba(74, 144, 226, 0.1), rgba(30, 42, 56, 0.05));
+      border-radius: 15px;
       pointer-events: none;
     }
 
@@ -105,23 +110,22 @@
       height: 35px;
       border: none;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.2);
-      color: white;
+      background: #4A90E2;
+      color: #FFFFFF;
       font-size: 14px;
       font-weight: bold;
       cursor: pointer;
       transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      border: 2px solid #FFFFFF;
     }
 
     .btn:hover {
-      background: rgba(255, 255, 255, 0.4);
+      background: #F76C6C;
       transform: scale(1.1);
     }
 
     .btn.active {
-      background: rgba(255, 255, 255, 0.6);
+      background: #1E2A38;
       transform: scale(1.2);
     }
 
@@ -139,14 +143,16 @@
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.5);
+      background: #4A90E2;
       cursor: pointer;
       transition: all 0.3s ease;
+      opacity: 0.6;
     }
 
     .dot.active {
-      background: white;
+      background: #F76C6C;
       transform: scale(1.2);
+      opacity: 1;
     }
 
     .info {
@@ -178,10 +184,215 @@
     .slider-container {
       animation: float 6s ease-in-out infinite;
     }
+
+    .typing-text {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.5rem;
+      font-weight: 600;
+      z-index: 20;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .typing-text .line1 {
+      color: #1E2A38;
+      margin-bottom: 10px;
+    }
+
+    .typing-text .line2 {
+      color: #4A90E2;
+    }
+
+    /* Arrow Animations */
+    .arrow-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .arrow-left {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .arrow-right {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .arrow {
+      width: 30px;
+      height: 30px;
+      border: 15px solid;
+      border-color: #1E2A38 transparent transparent #1E2A38;
+      transform: rotate(-45deg);
+    }
+
+    .arrowSliding {
+      position: absolute;
+      animation: slide 4s linear infinite;
+    }
+
+    .delay1 {
+      animation-delay: 1s;
+    }
+    .delay2 {
+      animation-delay: 2s;
+    }
+    .delay3 {
+      animation-delay: 3s;
+    }
+
+    @keyframes slide {
+      0% { opacity: 0; transform: translateX(60px); }  
+      20% { opacity: 1; transform: translateX(36px); } 
+      80% { opacity: 1; transform: translateX(-36px); }  
+      100% { opacity: 0; transform: translateX(-60px); } 
+    }
+
+    .arrow-right .arrow {
+      border-color: #4A90E2 transparent transparent #4A90E2;
+      transform: rotate(135deg);
+    }
+
+    /* Social Media Typing Text */
+    .social-text {
+      position: absolute;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.5rem;
+      font-weight: 600;
+      z-index: 10;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .social-text.instagram {
+      top: calc(50% - 80px);
+      left: 20px;
+      color: #1E2A38;
+    }
+
+    .social-text.linkedin {
+      top: calc(50% - 80px);
+      right: 20px;
+      color: #4A90E2;
+    }
+
+    .social-text .line {
+      overflow: hidden;
+      white-space: nowrap;
+      animation: typewriter 1.5s steps(15, end) forwards;
+    }
+
+    .arrow-right .arrowSliding {
+      animation: slideRight 4s linear infinite;
+    }
+
+    .arrow-right .delay1 {
+      animation-delay: 1s;
+    }
+    .arrow-right .delay2 {
+      animation-delay: 2s;
+    }
+    .arrow-right .delay3 {
+      animation-delay: 3s;
+    }
+
+    @keyframes slideRight {
+      0% { opacity: 0; transform: translateX(-60px); }  
+      20% { opacity: 1; transform: translateX(-36px); } 
+      80% { opacity: 1; transform: translateX(36px); }  
+      100% { opacity: 0; transform: translateX(60px); } 
+    }
+
+    @keyframes typewriter {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    .typing-text .line1 {
+      overflow: hidden;
+      white-space: nowrap;
+      animation: typewriter 1.5s steps(20, end) forwards;
+    }
+
+    .typing-text .line2 {
+      overflow: hidden;
+      white-space: nowrap;
+      animation: typewriter 1.5s steps(25, end) forwards;
+      width: 0;
+    }
   </style>
 </head>
 <body>
+  <!-- Social Media Typing Text -->
+  <div class="social-text instagram">
+    <div class="line">Visit my Instagram</div>
+  </div>
+  
+  <div class="social-text linkedin">
+    <div class="line">Visit my LinkedIn</div>
+  </div>
+
+  <!-- Arrow Animations -->
+  <div class="arrow-container">
+    <div class="arrow-left">
+      <div class="arrowSliding">
+        <div class="arrow"></div>
+      </div>
+      <div class="arrowSliding delay1">
+        <div class="arrow"></div>
+      </div>
+      <div class="arrowSliding delay2">
+        <div class="arrow"></div>
+      </div>
+      <div class="arrowSliding delay3">
+        <div class="arrow"></div>
+      </div>
+    </div>
+    
+    <div class="arrow-right">
+      <div class="arrowSliding">
+        <div class="arrow"></div>
+      </div>
+      <div class="arrowSliding delay1">
+        <div class="arrow"></div>
+      </div>
+      <div class="arrowSliding delay2">
+        <div class="arrow"></div>
+      </div>
+      <div class="arrowSliding delay3">
+        <div class="arrow"></div>
+      </div>
+    </div>
+  </div>
+
   <div class="container">
+    <div class="typing-text">
+      <div class="line1">
+        <span class="word">Hi!</span>
+        <span class="word">I</span>
+        <span class="word">am</span>
+        <span class="word">Zainab</span>
+        <span class="word">A</span>
+        <span class="word">Marketing</span>
+        <span class="word">professional</span>
+      </div>
+       
+    </div>
+    
     <div class="info">
     </div>
 
