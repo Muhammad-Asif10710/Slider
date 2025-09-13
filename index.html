@@ -144,10 +144,6 @@
       cursor: pointer;
       transition: all 0.3s ease;
       border: 2px solid #FFFFFF;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .btn:hover {
@@ -255,12 +251,8 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      pointer-events: auto; /* Ensure pointer events are enabled */
-      z-index: 10; /* Ensure arrows are above other elements */
-    }
-
-    .arrow-left, .arrow-right {
-      pointer-events: auto; /* Ensure arrows themselves are clickable */
+      pointer-events: none;
+      z-index: 5;
     }
 
     .arrow-left {
@@ -268,8 +260,6 @@
       left: 20px;
       top: 50%;
       transform: translateY(-50%);
-      text-decoration: none;
-      display: block;
     }
 
     .arrow-right {
@@ -277,8 +267,6 @@
       right: 20px;
       top: 50%;
       transform: translateY(-50%);
-      text-decoration: none;
-      display: block;
     }
 
     .arrow {
@@ -600,8 +588,8 @@
   </a>
 
   <!-- Arrow Animations -->
-  <div  class="arrow-container">
-    <a href="https://www.tiktok.com/@zainabsiddiqui192?_t=ZS-8zhDMdDhzpY&_r=1" target="_blank" class="arrow-left">
+  <div class="arrow-container">
+    <div class="arrow-left">
       <div class="arrowSliding">
         <div class="arrow"></div>
       </div>
@@ -614,9 +602,9 @@
       <div class="arrowSliding delay3">
         <div class="arrow"></div>
       </div>
-    </a>
+    </div>
     
-    <a href="https://www.linkedin.com/in/zainab-siddiqui-056a7720a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" class="arrow-right">
+    <div class="arrow-right">
       <div class="arrowSliding">
         <div class="arrow"></div>
       </div>
@@ -629,7 +617,7 @@
       <div class="arrowSliding delay3">
         <div class="arrow"></div>
       </div>
-    </a>
+    </div>
   </div>
 
   <div class="container">
@@ -661,12 +649,12 @@
     </div>
 
     <div class="controls">
-      <a href="https://www.tiktok.com/@zainabsiddiqui192?_t=ZS-8zhDMdDhzpY&_r=1" target="_blank" class="btn active" data-slide="0">1</a>
-      <a href="https://www.tiktok.com/@zainabsiddiqui192?_t=ZS-8zhDMdDhzpY&_r=1" target="_blank" class="btn" data-slide="1">2</a>
-      <a href="https://www.tiktok.com/@zainabsiddiqui192?_t=ZS-8zhDMdDhzpY&_r=1" target="_blank" class="btn" data-slide="2">3</a>
-      <a href="https://www.linkedin.com/in/zainab-siddiqui-056a7720a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" class="btn" data-slide="3">4</a>
-      <a href="https://www.linkedin.com/in/zainab-siddiqui-056a7720a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" class="btn" data-slide="4">5</a>
-      <a href="https://www.linkedin.com/in/zainab-siddiqui-056a7720a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" class="btn" data-slide="5">6</a>
+      <button class="btn active" data-slide="0">1</button>
+      <button class="btn" data-slide="1">2</button>
+      <button class="btn" data-slide="2">3</button>
+      <button class="btn" data-slide="3">4</button>
+      <button class="btn" data-slide="4">5</button>
+      <button class="btn" data-slide="5">6</button>
     </div>
 
   
@@ -775,9 +763,7 @@
 
     // Event listeners for buttons
     buttons.forEach((btn, index) => {
-      btn.addEventListener('click', (e) => {
-        // Prevent default link behavior for slider functionality
-        e.preventDefault();
+      btn.addEventListener('click', () => {
         goToSlide(index);
       });
 
@@ -789,12 +775,6 @@
         // Update current slide to match hover position
         currentSlide = index;
         updateSlider();
-      });
-
-      // Add right-click context menu for link access
-      btn.addEventListener('contextmenu', (e) => {
-        // Allow right-click to open link
-        e.stopPropagation();
       });
     });
 
