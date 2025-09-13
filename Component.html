@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Slider</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: black;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slider-container {
+      position: relative;
+      width: 300px;
+      height: 400px;
+      perspective: 1200px;
+      transform-style: preserve-3d;
+    }
+
+    .slider {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.5s ease;
+    }
+
+    .slide {
+      position: absolute;
+      width: 80%;
+      height: 80%;
+      left: 10%;
+      top: 10%;
+      background-size: cover;
+      background-position: center;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      transition: all 0.5s ease;
+      cursor: pointer;
+    }
+
+    .slide::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+      border-radius: 20px;
+      pointer-events: none;
+    }
+
+    .slide:nth-child(1) {
+      transform: rotateY(0deg) translateZ(250px);
+    }
+    .slide:nth-child(2) {
+      transform: rotateY(60deg) translateZ(250px);
+    }
+    .slide:nth-child(3) {
+      transform: rotateY(120deg) translateZ(250px);
+    }
+    .slide:nth-child(4) {
+      transform: rotateY(180deg) translateZ(250px);
+    }
+    .slide:nth-child(5) {
+      transform: rotateY(240deg) translateZ(250px);
+    }
+    .slide:nth-child(6) {
+      transform: rotateY(300deg) translateZ(250px);
+    }
+
+    .controls {
+      position: absolute;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 10;
+    }
+
+    .btn {
+      width: 35px;
+      height: 35px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.4);
+      transform: scale(1.1);
+    }
+
+    .btn.active {
+      background: rgba(255, 255, 255, 0.6);
+      transform: scale(1.2);
+    }
+
+    .dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 10;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .dot.active {
+      background: white;
+      transform: scale(1.2);
+    }
+
+    .info {
+      position: absolute;
+      top: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      text-align: center;
+      z-index: 10;
+    }
+
+    .info h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .info p {
+      font-size: 1.2rem;
+      opacity: 0.8;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .slider-container {
+      animation: float 6s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="info">
+    </div>
+
+    <div class="slider-container">
+      <div class="slider" id="slider">
+        <div class="slide" style="background-image: url('133975142303681631.jpg');"></div>
+        <div class="slide" style="background-image: url('133975142371300047.jpg');"></div>
+        <div class="slide" style="background-image: url('133988296863130328.jpg');"></div>
+        <div class="slide" style="background-image: url('133975142303681631.jpg');"></div>
+        <div class="slide" style="background-image: url('133975142371300047.jpg');"></div>
+        <div class="slide" style="background-image: url('133988296863130328.jpg');"></div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="btn active" data-slide="0">1</button>
+      <button class="btn" data-slide="1">2</button>
+      <button class="btn" data-slide="2">3</button>
+      <button class="btn" data-slide="3">4</button>
+      <button class="btn" data-slide="4">5</button>
+      <button class="btn" data-slide="5">6</button>
+    </div>
+
+    <div class="dots">
+      <div class="dot active" data-slide="0"></div>
+      <div class="dot" data-slide="1"></div>
+      <div class="dot" data-slide="2"></div>
+    </div>
+  </div>
+
+  <script>
+    const slider = document.getElementById('slider');
+    const buttons = document.querySelectorAll('.btn');
+    const dots = document.querySelectorAll('.dot');
+    
+    let currentSlide = 0;
+    const totalSlides = 6;
+    const angleStep = 360 / totalSlides;
+
+    function updateSlider() {
+      const rotation = -currentSlide * angleStep;
+      slider.style.transform = `rotateY(${rotation}deg)`;
+      
+      // Update buttons
+      buttons.forEach((btn, index) => {
+        btn.classList.toggle('active', index === currentSlide);
+      });
+      
+      // Update dots
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === (currentSlide % 3));
+      });
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateSlider();
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateSlider();
+    }
+
+    function goToSlide(slideIndex) {
+      currentSlide = slideIndex;
+      updateSlider();
+    }
+
+    // Event listeners for buttons
+    buttons.forEach((btn, index) => {
+      btn.addEventListener('click', () => {
+        goToSlide(index);
+      });
+
+      // Hover to slide effect - stays where you hover
+      btn.addEventListener('mouseenter', () => {
+        const rotation = -index * angleStep;
+        slider.style.transform = `rotateY(${rotation}deg)`;
+        slider.style.transition = 'transform 0.3s ease';
+        // Update current slide to match hover position
+        currentSlide = index;
+        updateSlider();
+      });
+    });
+
+    // Event listeners for dots
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        goToSlide(index);
+      });
+    });
+
+    // Auto-play removed - slider only changes on manual interaction
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') prevSlide();
+      if (e.key === 'ArrowRight') nextSlide();
+    });
+
+    // Touch/swipe support
+    let startX = 0;
+    let endX = 0;
+
+    sliderContainer.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+    });
+
+    sliderContainer.addEventListener('touchend', (e) => {
+      endX = e.changedTouches[0].clientX;
+      handleSwipe();
+    });
+
+    function handleSwipe() {
+      const threshold = 50;
+      const diff = startX - endX;
+      
+      if (Math.abs(diff) > threshold) {
+        if (diff > 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+      }
+    }
+  </script>
+</body>
+</html>
